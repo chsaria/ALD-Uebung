@@ -25,7 +25,17 @@ public class Tiefensuche extends BaseTree<Film> {
 
 		List<String> flatList = new ArrayList<String>();
 		
-
+		if (node.getLeft() != null)
+		{
+			flatList.addAll(getNodesInOrder(node.getLeft()));
+		}
+		
+		flatList.add(node.getValue().getTitel());
+		
+		if (node.getRight() != null)
+		{
+			flatList.addAll(getNodesInOrder(node.getRight()));
+		}
 		
 		return flatList;
 	}
@@ -45,7 +55,21 @@ public class Tiefensuche extends BaseTree<Film> {
 		
 		List<String> flatList = new ArrayList<String>();
 		
-
+		// Beim eigenen überprüfen
+		if (node.getValue().getLänge() >= min && node.getValue().getLänge() <= max)
+		{
+			flatList.add(node.getValue().getTitel());
+		}
+		// Links überprüfen (Eigene Filmlänge größer/gleich MIN ?)
+		if (node.getLeft() != null && node.getValue().getLänge() >= min)
+		{
+			flatList.addAll(getMinMaxPreOrder(node.getLeft(), min, max));
+		}
+		// Rechts überprüfen (Eigene Filmlänge kleiner-gleich MAX ?)
+		if (node.getRight() != null && node.getValue().getLänge() <= max)
+		{
+			flatList.addAll(getMinMaxPreOrder(node.getRight(), min, max));
+		}
 		
 		return flatList;
 	}
