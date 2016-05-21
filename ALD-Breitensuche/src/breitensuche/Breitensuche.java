@@ -21,7 +21,22 @@ public class Breitensuche extends BaseTree<Integer> {
 
 		ArrayList<Integer> result = new ArrayList<>();
 
+		ArrayDeque<Node<Integer>> queue = new ArrayDeque<>();
 		
+		queue.add(start);
+		
+		while (!queue.isEmpty())
+		{
+			Node<Integer> current = queue.remove();
+			
+			result.add(current.value);
+			
+			if (current.getLeft() != null)
+				queue.add(current.getLeft());
+			if (current.getRight() != null)
+				queue.add(current.getRight());
+			
+		}
 		
 		
 		return result;
